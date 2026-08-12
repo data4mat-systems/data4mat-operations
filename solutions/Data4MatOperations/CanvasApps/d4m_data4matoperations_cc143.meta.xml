@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>d4m_data4matoperations_cc143</Name>
+  <AppVersion>2026-08-12T12:48:37Z</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>3.26074.11.0</CreatedByClientVersion>
+  <MinClientVersion>3.26074.11.0</MinClientVersion>
+  <Tags>{"primaryDeviceWidth":"390","primaryDeviceHeight":"844","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.26074.11","minimumRequiredApiVersion":"2.2.0","hasComponent":"true","hasUnlockedComponent":"true","isUnifiedRootApp":"false","m365CopilotSettingValue":"0","sienaVersion":"20260812T110559Z-3.26074.11.0"}</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId xsi:nil="true"></GalleryItemId>
+  <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
+  <DisplayName>Data4Mat Operations</DisplayName>
+  <Description>Internal app for Data4Mat staff to manage client records and conduct structured website takeover audits. Use it to review audit stages, record responses, maintain system details, and access client workspaces from desktop or mobile.</Description>
+  <CommitMessage xsi:nil="true"></CommitMessage>
+  <Publisher xsi:nil="true"></Publisher>
+  <AuthorizationReferences>[]</AuthorizationReferences>
+  <ConnectionReferences>{"9d5e27eb-1ead-402b-b60c-8b993ddda608":{"id":"/providers/microsoft.powerapps/apis/shared_sharepointonline","displayName":"SharePoint","iconUri":"https://static.powerapps.com/resource/ppcr/releases/v1.0.1813/1.0.1813.4769/sharepointonline/icon.png","dataSources":["TakeoverAudits","Findings","RemediationActions","Approvals","GeneratedDocuments","Client Register","AppConfiguration","QuestionConfigurations","QuestionChoiceConfigurations","CollectionConfigurations","CollectionFieldConfigurations","CollectionFieldChoiceConfigurations","ValueSetConfigurations","ValueSetChoiceConfigurations","AuditResponses","EvidenceRegister","ClientContacts","AuditStageRecords"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{"https://data4matgroup.sharepoint.com/sites/data4matoperations":{"dataSources":{"TakeoverAudits":{"tableName":"96f1e209-fdeb-4b95-9ae6-cff0ea5043c8"},"Findings":{"tableName":"2a58c3e1-890f-4610-a892-32a9a5a89326"},"RemediationActions":{"tableName":"d9aee71f-d553-4f55-9c7b-5575c9bc1795"},"Approvals":{"tableName":"87587074-fbd7-4456-b06c-c4cf8c5beeda"},"GeneratedDocuments":{"tableName":"78b65fb4-87cc-4a08-9653-d9779656b46a"},"Client Register":{"tableName":"0d2756f4-7346-41d6-9fb9-590090943e85"},"AppConfiguration":{"tableName":"f8fb9819-4796-41bc-be63-cd7f620f84fd"},"QuestionConfigurations":{"tableName":"9628039c-0433-49f3-a8dd-b79b3a97618c"},"QuestionChoiceConfigurations":{"tableName":"1dbc8599-58ad-4a91-898d-2eb780496c5e"},"CollectionConfigurations":{"tableName":"4807b8e2-04ea-408e-972e-ef0a26c7e6e0"},"CollectionFieldConfigurations":{"tableName":"d462fc2d-71f3-47eb-a789-5606b9c8e4bb"},"CollectionFieldChoiceConfigurations":{"tableName":"9bd5a881-6c4c-4934-9ab5-20eec4029e32"},"ValueSetConfigurations":{"tableName":"c083bb53-abc3-4094-bd92-49b37ce4c121"},"ValueSetChoiceConfigurations":{"tableName":"ac70003c-5084-48d9-923b-e31637325bde"},"AuditResponses":{"tableName":"79ee222d-1fb5-4b4b-a3ab-08998a86f9aa"},"EvidenceRegister":{"tableName":"f6d5824e-3e62-436b-884e-49c824798841"},"ClientContacts":{"tableName":"7c1a61cb-b2b6-40e7-8f67-0b127f087231"},"AuditStageRecords":{"tableName":"ddf23cbc-6ca5-4bce-b92d-8a344708ced5"}}}},"apiTier":"Standard","actions":["providers/PowerPlatform.Governance/Operations/Read","providers/PowerPlatform.Governance/Operations/Write","providers/PowerPlatform.Governance/Operations/Delete"]}}</ConnectionReferences>
+  <DatabaseReferences>{}</DatabaseReferences>
+  <AppComponents>[]</AppComponents>
+  <AppComponentDependencies>[]</AppComponentDependencies>
+  <CanConsumeAppPass>1</CanConsumeAppPass>
+  <CanvasAppType>0</CanvasAppType>
+  <BypassConsent>0</BypassConsent>
+  <AdminControlBypassConsent>0</AdminControlBypassConsent>
+  <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <CdsDependencies>{"cdsdependencies":[]}</CdsDependencies>
+  <IsCustomizable>1</IsCustomizable>
+  <BackgroundImageUri>/CanvasApps/d4m_data4matoperations_cc143_BackgroundImageUri</BackgroundImageUri>
+  <DocumentUri>/CanvasApps/d4m_data4matoperations_cc143_DocumentUri.msapp</DocumentUri>
+  <AdditionalUris>
+    <AdditionalUri>/CanvasApps/d4m_data4matoperations_cc143_AdditionalUris0_identity.json</AdditionalUri>
+  </AdditionalUris>
+</CanvasApp>
