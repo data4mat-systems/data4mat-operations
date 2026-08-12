@@ -1,0 +1,144 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "d4m_sharedsharepointonline_28602"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_an_item_is_created": {
+          "recurrence": {
+            "frequency": "Minute",
+            "interval": 3
+          },
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "metadata": {
+            "operationMetadataId": "30de1668-0f55-443e-8920-072ddaa394cc"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://data4matgroup.sharepoint.com/sites/data4matoperations",
+              "table": "0d2756f4-7346-41d6-9fb9-590090943e85"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetOnNewItems",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_Client_Record": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "e5c93050-aa81-4afb-b5a7-47750e21986e"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://data4matgroup.sharepoint.com/sites/data4matoperations",
+              "table": "0d2756f4-7346-41d6-9fb9-590090943e85",
+              "id": "@triggerOutputs()?['body/ID']",
+              "item/ClientFolderName": "@triggerOutputs()?['body/ClientFolderName']",
+              "item/FolderCreated/Value": "No",
+              "item/ProBono/Value": "No",
+              "item/AutomationStatus/Value": "Not started",
+              "item/ClientID": "@concat(\r\n    'D4M-CL-',\r\n    formatNumber(\r\n        triggerBody()?['ID'],\r\n        '0000000'\r\n    )\r\n)"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "PatchItem",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        },
+        "Run_CP-01_-_Create_Client_Main_Folder": {
+          "runAfter": {
+            "Initialize_Client_Record": [
+              "Succeeded"
+            ]
+          },
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "905a827b-687f-f111-ab0e-7ced8d2cd362"
+            },
+            "body": {
+              "text": "@outputs('Initialize_Client_Record')?['body/ClientFolderName']",
+              "text_1": "01 Clients",
+              "text_2": "@concat(\r\n    'D4M-CL-',\r\n    formatNumber(\r\n        triggerBody()?['ID'],\r\n        '0000000'\r\n    )\r\n)"
+            }
+          }
+        },
+        "Run_CP-02_-_Create_Client_Subfolders": {
+          "runAfter": {
+            "Run_CP-01_-_Create_Client_Main_Folder": [
+              "Succeeded"
+            ]
+          },
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "c12c9d79-6a7f-f111-ab0e-7ced8d2cd362"
+            },
+            "body": {
+              "text": "@outputs('Initialize_Client_Record')?['body/ClientFolderName']",
+              "text_1": "@body('Run_CP-01_-_Create_Client_Main_Folder')?['folderpath']",
+              "text_2": "@body('Run_CP-01_-_Create_Client_Main_Folder')?['provisioningid']"
+            }
+          }
+        },
+        "Update_Client_-_Provisioning_Completed": {
+          "runAfter": {
+            "Run_CP-02_-_Create_Client_Subfolders": [
+              "Succeeded"
+            ]
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://data4matgroup.sharepoint.com/sites/data4matoperations",
+              "table": "0d2756f4-7346-41d6-9fb9-590090943e85",
+              "id": "@triggerBody()?['ID']",
+              "item/ClientFolderName": "@outputs('Initialize_Client_Record')?['body/ClientFolderName']",
+              "item/FolderCreated/Value": "Yes",
+              "item/ProBono/Value": "No",
+              "item/AutomationStatus/Value": "Completed",
+              "item/ClientRootPath": "@body('Run_CP-01_-_Create_Client_Main_Folder')?['folderpath']",
+              "item/ProvisioningCompleted": "@utcNow()",
+              "item/ClientID": "@outputs('Initialize_Client_Record')?['body/ClientID']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "PatchItem",
+              "connectionName": "shared_sharepointonline"
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

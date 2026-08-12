@@ -1,0 +1,156 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "d4m_sharedsharepointonline_28602"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "83083c00-1427-49c7-b9f5-1d1bc54373fd"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "ClientFolderName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Enter the client folder name",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "ClientRootPath",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Enter the client root path",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "ProvisioningID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Enter the provisioning ID",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Create_new_folder": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "6e263e50-c685-4b52-af46-73ce37692bef"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_sharepointonline_1",
+              "operationId": "CreateNewFolder",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+            },
+            "parameters": {
+              "dataset": "https://data4matgroup.sharepoint.com/sites/data4matoperations",
+              "table": "8e433aa6-9643-4370-bbb3-e48aeace5a2e",
+              "parameters/path": "@triggerBody()['text']"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Create_new_folder": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b16b208d-bb72-4fc2-afce-1815ce0c4be3"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "stage": "01",
+              "status": "Succeeded",
+              "message": "Client main folder created successfully",
+              "provisioningid": "@triggerBody()['text_2']",
+              "clientfoldername": "@triggerBody()['text']",
+              "folderpath": "@outputs('Create_new_folder')?['body/{FullPath}']"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "stage": {
+                  "title": "Stage",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                },
+                "status": {
+                  "title": "Status",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                },
+                "message": {
+                  "title": "Message",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                },
+                "provisioningid": {
+                  "title": "ProvisioningID",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                },
+                "clientfoldername": {
+                  "title": "ClientFolderName",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                },
+                "folderpath": {
+                  "title": "FolderPath",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
