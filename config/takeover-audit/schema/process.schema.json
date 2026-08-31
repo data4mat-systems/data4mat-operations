@@ -181,7 +181,8 @@
         "ruleType": {
           "type": "string",
           "enum": [
-            "blockStageProgression"
+            "blockStageProgression",
+            "blockAuditCompletion"
           ]
         },
         "condition": {
@@ -246,6 +247,9 @@
             "null"
           ],
           "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "allowProgressionWithUnresolvedHardStop": {
+          "type": "boolean"
         },
         "hardStopStage": {
           "type": "boolean"

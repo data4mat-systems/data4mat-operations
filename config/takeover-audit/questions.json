@@ -1088,8 +1088,8 @@
       "order": 310,
       "active": true,
       "required": true,
-      "text": "Is all critical access documented and confirmed sufficiently to continue the takeover audit?",
-      "helpText": "Select No or Requires confirmation if any critical access remains unclear.",
+      "text": "Is all critical access documented and confirmed sufficiently for the takeover audit to be completed?",
+      "helpText": "Select No or Requires confirmation if any critical access remains unclear. Other audit work may continue, but the audit cannot be completed until critical access is documented and confirmed.",
       "responseType": "Choice",
       "choices": [
         {
@@ -1124,7 +1124,7 @@
             "No",
             "RequiresConfirmation"
           ],
-          "message": "Critical access is not sufficiently documented and confirmed. Dependent takeover work cannot continue."
+          "message": "Critical access is not sufficiently documented and confirmed. The takeover audit cannot be completed until this is resolved."
         }
       ]
     },

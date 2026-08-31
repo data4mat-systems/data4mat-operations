@@ -72,6 +72,7 @@
       "previousStageId": "commercial-scope",
       "nextStageId": "backups",
       "hardStopStage": true,
+      "allowProgressionWithUnresolvedHardStop": true,
       "storageMappings": {
         "stage": "AuditStageRecords",
         "response": "AuditResponses",
@@ -85,9 +86,9 @@
       "hardStopRules": [
         {
           "ruleId": "HS-ACCESS-001",
-          "ruleType": "blockStageProgression",
+          "ruleType": "blockAuditCompletion",
           "condition": "AccessUnclear",
-          "message": "Access is unclear. The takeover audit cannot proceed until access has been documented and confirmed."
+          "message": "Access is unclear. Required access must be documented and confirmed before the takeover audit can be completed."
         }
       ]
     },
